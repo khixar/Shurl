@@ -1,0 +1,86 @@
+{
+	"variables": [],
+	"info": {
+		"name": "shurl",
+		"_postman_id": "6b1f0685-0a12-3262-3ff0-712db04e3099",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST create short url",
+			"request": {
+				"url": "localhost:8000/shorturl/create_short_url",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYyNjg0NTkyLCJpYXQiOjE2NjI2MjQ1OTIsImp0aSI6IjI0ODIzZmNjNTNiNTRjODliMTNjNjUwYzNlMmU0ODYyIiwidXNlcl9pZCI6MX0.yuyE274TTGz8jrUahD0cXvBi1gsZ6LkhiSq5Ewg2a3Y",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"long_url\": \"https://techdocs.broadcom.com/us/en/ca-enterprise-software/layer7-api-management/live-api-creator/5-4/invokiasdfng-apsdfsdis/error-codes.html#:~:text=Error%20code%204001%20indicates%20that,identified%20in%20the%20error%20message.\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST create access token",
+			"request": {
+				"url": "localhost:8000/api/token/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"khizar\",\n\t\"password\": \"khizar\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET fetch long url",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8000/shorturl?url=s14j2Q",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"shorturl"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "s14j2Q",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
