@@ -22,7 +22,7 @@ class Url(ModelWithUUID):
     expired_at: short url expiry
     user: user who generated the short url
     """
-    short_url = models.CharField(max_length=30, unique=True)
+    short_url = models.CharField(max_length=6, unique=True)
     long_url = models.CharField(max_length=5000)
     expired_at = models.DateTimeField(blank=True, null=True)
     user = models.ForeignKey(

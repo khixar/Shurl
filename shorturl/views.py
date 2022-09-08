@@ -17,7 +17,7 @@ from shorturl.utils import shorten_url, is_short_url_exists
 from shorturl import constants
 
 
-class ListCreateShortUrl(generics.ListCreateAPIView):
+class CreateShortUrl(generics.CreateAPIView):
     """
     Creates the unique short url for the given
     long url entered by the user
@@ -33,22 +33,6 @@ class ListCreateShortUrl(generics.ListCreateAPIView):
     queryset = Url.objects.none()
     serializer_class = UrlSerializer
     permission_classes = [IsAuthenticated]
-
-    def list(self, request):
-        short_url = request.query_params.get('shorturl', None)
-        if not short_url:
-            return Response({
-                "code": responses.ERR_4103_MISSING_KEY_OR_QUERY,
-                "message": "Missing short_url query param",
-                "usage_examples": [
-                    "{ 'GET' : '?shortUrl=http://shurl.com/saI9WF' }"
-                ],
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        short_url = Url.objects.filter(short_url=short_url).last()
-        if short_url:
-            serializer_data = UrlSerializer(short_url).data
-            return Response(serializer_data)
 
     def post(self, request):
         long_url = request.data.get("long_url", None)
@@ -68,7 +52,7 @@ class ListCreateShortUrl(generics.ListCreateAPIView):
         url = Url.objects.filter(long_url=long_url).last()
         if url:
             # can check for user uniqueness as well.
-            # return every user the uniq url
+            # if we need to return every user the uniq url
             uniq_long = False
 
         elif uniq_long:
@@ -101,3 +85,43 @@ class ListCreateShortUrl(generics.ListCreateAPIView):
 
         serializer_data = UrlSerializer(url).data
         return Response(serializer_data)
+
+
+class FetchShortUrl(generics.ListAPIView):
+    """
+    Generate long url if user enters the
+    short url. Front-end will use the long url to
+    show the orignal content
+
+    Args: url(`string`) as query param
+
+    Returns:
+        - short_url(`string`): the short form url.
+        - long_url(`string`): the orignal url.
+        - expired_at(`datetime`): url expiry time.
+    """
+
+    def list(self, request):
+        short_url = request.query_params.get('url', None)
+        if not short_url:
+            return Response({
+                "code": responses.ERR_4103_MISSING_KEY_OR_QUERY,
+                "message": "Missing url query param",
+                "usage_examples": [
+                    "{ 'GET' : '?url=http://shurl.com/saI9WF' }"
+                ],
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        short_url = Url.objects.filter(short_url=short_url).last()
+        if short_url:
+            serializer_data = UrlSerializer(short_url).data
+            return Response(serializer_data)
+
+        else:
+            return Response({
+                "code": responses.ERR_4044_RESOURCE_NOT_FOUND,
+                "message": "Resouce not found",
+                "usage_examples": [
+                    "{ 'GET' : 'host?url=http://shurl.com/saI9WF' }"
+                ],
+            }, status=status.HTTP_404_NOT_FOUND)
