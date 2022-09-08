@@ -32,7 +32,6 @@ class CreateShortUrl(generics.CreateAPIView):
     """
     queryset = Url.objects.none()
     serializer_class = UrlSerializer
-    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         long_url = request.data.get("long_url", None)
@@ -80,7 +79,6 @@ class CreateShortUrl(generics.CreateAPIView):
                 short_url=short_url,
                 long_url=long_url,
                 expired_at=timezone.now() + timedelta(days=365),
-                user=request.user,
             )
 
         serializer_data = UrlSerializer(url).data
