@@ -3,12 +3,9 @@
 
 ## Setup
 - clone the repo `git clone https://github.com/khixar/Shurl.git`
-- CMD `pip install -r requirements.txt`
-- CMD `python manage.py runserver`
+- CMD `docker-compose up`
 
 ## API utilization
 *Please find the attached postman collection for*:
-- Creating the `short url`
+- Creating the `short url` by sending POST request to `http://0.0.0.0:8000//shorturl/create_short_url`
 - Click on the short url in postman will return the orignal url
-
-*Note: You might need to update DB env vars based on your physcial environment*
