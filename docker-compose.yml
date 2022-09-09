@@ -12,10 +12,14 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
+    env_file:
+        ./shurl/.env
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
+    ports:
+      - "8000:8000"
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
