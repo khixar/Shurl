@@ -110,9 +110,21 @@ class FetchShortUrl(generics.ListAPIView):
                 ],
             }, status=status.HTTP_400_BAD_REQUEST)
 
-        short_url = Url.objects.filter(short_url=short_url).last()
-        if short_url:
-            serializer_data = UrlSerializer(short_url).data
+        url = Url.objects.filter(short_url=short_url).last()
+        if url:
+            """
+            #! redirecting in API just for illustration
+            purposes otherwise this should be done on FE.
+            """
+            return redirect(url.long_url)
+
+            """
+            #! If FE is integrated then it can utilise the
+            returned long url to display the exact contents
+            of the page.
+            """
+
+            serializer_data = UrlSerializer(url).data
             return Response(serializer_data)
 
         else:
