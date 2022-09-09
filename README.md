@@ -9,4 +9,4 @@
 ## API utilization
 *Please find the attached postman collection for*:
 - Creating the `short url` by sending POST request to `http://0.0.0.0:8000//shorturl/create_short_url`
-- Click on the short url in postman will return the orignal url
+- Click on the short url in postman will redirect to orignal url
