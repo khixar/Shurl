@@ -1,20 +1,19 @@
 from datetime import timedelta
 
-from django.shortcuts import render
+from django.core.cache import cache
+from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.core.cache import cache
 
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-
-from shorturl.models import Url
+from shorturl import constants
 from shorturl import responses
+from shorturl.models import Url
 from shorturl.serializers import UrlSerializer
 from shorturl.utils import shorten_url, is_short_url_exists
-from shorturl import constants
 
 
 class CreateShortUrl(generics.CreateAPIView):
