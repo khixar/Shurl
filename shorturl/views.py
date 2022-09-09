@@ -21,6 +21,9 @@ class CreateShortUrl(generics.CreateAPIView):
     Creates the unique short url for the given
     long url entered by the user
 
+    Usage Example:
+        - POST {host}/shorturl/create_short_url
+
     Args:
         - long_url(`str`): the url that needs to be shortened
 
@@ -88,7 +91,11 @@ class FetchShortUrl(generics.ListAPIView):
     """
     Generate long url if user enters the
     short url. Front-end will use the long url to
-    show the orignal content
+    show the orignal content. Added a redirect for
+    serving the purpose temporarily.
+
+    Usage Example:
+        - GET: {host}/shorturl/{shorturl}
 
     Args: url(`string`) as query param
 
@@ -112,8 +119,8 @@ class FetchShortUrl(generics.ListAPIView):
         url = Url.objects.filter(short_url=short_url).last()
         if url:
             """
-            #! redirecting in API just for illustration
-            purposes otherwise this should be done on FE.
+            #! Illustration only: redirecting in API just for
+            the demo purposes otherwise this should be done on FE.
             """
             return redirect(url.long_url)
 
@@ -122,7 +129,6 @@ class FetchShortUrl(generics.ListAPIView):
             returned long url to display the exact contents
             of the page.
             """
-
             serializer_data = UrlSerializer(url).data
             return Response(serializer_data)
 
