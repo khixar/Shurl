@@ -3,6 +3,7 @@
 
 ## Setup
 - clone the repo `git clone https://github.com/khixar/Shurl.git`
+- CMD `cp .env.example shurl/.env` and set the env variables accordingly
 - CMD `docker-compose up`
 
 ## API utilization
