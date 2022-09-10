@@ -1,12 +1,9 @@
 from datetime import timedelta
 
-from django.core.cache import cache
 from django.shortcuts import redirect
 from django.utils import timezone
-from django.utils.decorators import method_decorator
 
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from shorturl import constants
